@@ -1,22 +1,25 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { BookMarkModule } from './book-mark/book-mark.module';
+import { BookMarkModule } from './book-mark/bookmark.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './user/user.entity';
+import { BookMark } from './book-mark/bookmark.entity';
+
 
 @Module({
   imports: [AuthModule, UserModule, BookMarkModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 3306,
+      port: 5434,
       username: 'postgres',
       password: '123',
       database: 'nest',
-      entities: [],
+      entities: [User,BookMark],
       synchronize: true,
     })],
   controllers: [],
-  providers: [],
+  providers: [User],
 })
 export class AppModule {}

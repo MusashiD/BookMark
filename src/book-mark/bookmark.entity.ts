@@ -1,12 +1,18 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class user {
+export class BookMark {
   @PrimaryGeneratedColumn()
   id:string;
 
   @Column()
-  name: string;
+  title: string;
+
+  @Column({nullable:true})
+  description?:string;
+
+  @Column()
+  link:string;
 
   @CreateDateColumn()
   CreatedAt: Date;
