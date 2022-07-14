@@ -21,4 +21,6 @@ export class BookMarkService{
   async remove(id: string): Promise<void> {
     await this.bookMarkRepository.delete(id);
   }
+
+  
 }

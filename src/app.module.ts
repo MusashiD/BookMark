@@ -5,10 +5,13 @@ import { BookMarkModule } from './book-mark/bookmark.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 import { BookMark } from './book-mark/bookmark.entity';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
-  imports: [AuthModule, UserModule, BookMarkModule,
+  imports: [ConfigModule.forRoot({
+    isGlobal:true,
+  }),AuthModule, UserModule, BookMarkModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
