@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
+import { ForbiddenException, HttpCode, HttpStatus, Injectable } from "@nestjs/common";
 import { AuthDto } from "./dto";
 import * as argon from 'argon2'
 import { InjectRepository } from "@nestjs/typeorm";
@@ -28,6 +28,7 @@ export class AuthService{
  
   }
 
+  @HttpCode(HttpStatus.OK)
   async signin(dto:AuthDto){
 
     const user = await this.usersRepository.findOne(
