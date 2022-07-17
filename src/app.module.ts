@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
 import { BookMark } from './book-mark/bookmark.entity';
 import { ConfigModule } from '@nestjs/config';
+import { BookmarkController } from './bookmark/bookmark.controller';
+import { BookmarkService } from './bookmark/bookmark.service';
 
 
 @Module({
@@ -22,7 +24,7 @@ import { ConfigModule } from '@nestjs/config';
       entities: [User,BookMark],
       synchronize: true,
     })],
-  controllers: [],
-  providers: [User],
+  controllers: [BookmarkController],
+  providers: [User, BookmarkService],
 })
 export class AppModule {}

@@ -1,6 +1,6 @@
 import { Exclude } from "class-transformer";
 import { AuthDto } from "src/auth/dto";
-import { BookMark } from "src/book-mark/bookmark.entity";
+import { BookMark } from "../bookmark/bookmark.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
