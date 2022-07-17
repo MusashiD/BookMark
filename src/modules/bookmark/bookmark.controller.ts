@@ -1,22 +1,25 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { GetUser } from 'src/modules/auth/decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthUser } from 'src/common/decorators/user.decorator';
 import { JwtGuard } from 'src/modules/auth/guard';
 import { BookmarkService } from './bookmark.service';
 import { CreateBookMarkDto } from './dto';
 
+@ApiTags('Bookmark')
 @UseGuards(JwtGuard)
+@ApiBearerAuth('token')
 @Controller('bookmark')
 export class BookmarkController {
   constructor(private bookMarkService: BookmarkService) {}
 
   @Get()
-  getBookMarks(@GetUser('id') userId: string) {
+  getBookMarks(@AuthUser('id') userId: string) {
     return this.bookMarkService.getBookMarks(userId);
   }
 
   @Post()
   createBookMark(
-    @GetUser('id') userId: string,
+    @AuthUser('id') userId: string,
     @Body() dto: CreateBookMarkDto,
   ) {
     return this.bookMarkService.createBookMark(userId, dto);
@@ -24,7 +27,7 @@ export class BookmarkController {
 
   @Get(':id')
   getBookMarksById(
-    @GetUser('id') userId: string,
+    @AuthUser('id') userId: string,
     @Param('id') bookMarkId: string,
   ) {
     return this.bookMarkService.getBookMarksById(bookMarkId);

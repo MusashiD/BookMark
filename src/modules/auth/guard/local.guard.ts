@@ -1,7 +1,7 @@
 import { ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-export class JwtGuard extends AuthGuard('jwt') {
+export class LocalGuard extends AuthGuard('local') {
   constructor() {
     super();
   }

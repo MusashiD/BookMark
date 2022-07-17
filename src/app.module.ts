@@ -5,22 +5,21 @@ import { BookmarkModule } from './modules/bookmark/bookmark.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './modules/user/user.entity';
 import { BookMark } from './modules/bookmark/bookmark.entity';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
+import typeormConfig from './core/config/typeorm.config';
+import systemConfig from './core/config/system.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [registerAs('typeorm', () => typeormConfig), systemConfig],
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5434,
-      username: 'postgres',
-      password: '123',
-      database: 'nest',
-      entities: [User, BookMark],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) =>
+        configService.get('typeorm'),
+      inject: [ConfigService],
     }),
     AuthModule,
     UserModule,
