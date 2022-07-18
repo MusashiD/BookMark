@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BookMark } from './bookmark.entity';
@@ -26,7 +26,11 @@ export class BookmarkService {
     return this.bookmarkRepository.findOneBy({ id: bookmarkId });
   }
 
-  async deleteBookMarksById(userId: string, bookmarkId: string) {
-    await this.bookmarkRepository.delete(bookmarkId);
+  async updateBookMarksById(bookmarkId: string, dto: EditBookMarkDto) {
+    const bookMark = this.bookmarkRepository.findOneBy({ id: bookmarkId });
+    if (!bookMark) {
+      throw new UnauthorizedException('Credentials incorrect');
+    }
+    await this.bookmarkRepository.update(bookmarkId, dto);
   }
 }
