@@ -4,16 +4,19 @@ import { UserModule } from './user/user.module';
 import { BookMarkModule } from './book-mark/bookmark.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/user.entity';
-import { BookMark } from './book-mark/bookmark.entity';
+import { BookMark } from './bookmark/bookmark.entity';
 import { ConfigModule } from '@nestjs/config';
 import { BookmarkController } from './bookmark/bookmark.controller';
 import { BookmarkService } from './bookmark/bookmark.service';
 
-
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal:true,
-  }),AuthModule, UserModule, BookMarkModule,
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    AuthModule,
+    UserModule,
+    BookMarkModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -21,9 +24,10 @@ import { BookmarkService } from './bookmark/bookmark.service';
       username: 'postgres',
       password: '123',
       database: 'nest',
-      entities: [User,BookMark],
+      entities: [User, BookMark],
       synchronize: true,
-    })],
+    }),
+  ],
   controllers: [BookmarkController],
   providers: [User, BookmarkService],
 })

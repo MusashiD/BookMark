@@ -1,13 +1,13 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateBookMarkDto{
+export class CreateBookMarkDto {
   @IsString()
   @IsNotEmpty()
-  title:string;
+  title: string;
   @IsString()
   @IsNotEmpty()
-  description:string;
+  description: string;
   @IsString()
   @IsNotEmpty()
-  link:string;
+  link: string;
 }

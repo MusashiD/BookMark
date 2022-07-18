@@ -6,33 +6,27 @@ import { CreateBookMarkDto, EditBookMarkDto } from './dto';
 
 @Injectable()
 export class BookmarkService {
-  constructor(@InjectRepository(BookMark)
-  private bookmarkRepository: Repository<BookMark>){}
+  constructor(
+    @InjectRepository(BookMark)
+    private bookmarkRepository: Repository<BookMark>,
+  ) {}
 
-
-  
-  getBookMarks(userId:string):Promise <BookMark[]>{
-    return this.bookmarkRepository.find({where:{userId}})
+  getBookMarks(userId: string): Promise<BookMark[]> {
+    return this.bookmarkRepository.find({ where: { userId } });
   }
 
-  
-  async createBookMark(userId:string, dto:CreateBookMarkDto) {
-
-    const CreateBookMark = this.bookmarkRepository.create(
-      {userId,...dto,});
+  async createBookMark(userId: string, dto: CreateBookMarkDto) {
+    const CreateBookMark = this.bookmarkRepository.create({ userId, ...dto });
     const bookMark = await this.bookmarkRepository.save(CreateBookMark);
 
     return bookMark;
   }
 
-  
-  getBookMarksById(bookmarkId:string){
-    return this.bookmarkRepository.findOneBy({ id:bookmarkId });
+  getBookMarksById(bookmarkId: string) {
+    return this.bookmarkRepository.findOneBy({ id: bookmarkId });
   }
 
-  
-  editBookMarksById(userId:string, dto:EditBookMarkDto,bookMarkId:string){}
-
-  
-  deleteBookMarksById(userId:string, bookmarkId:string){}
+  async deleteBookMarksById(userId: string, bookmarkId: string) {
+    await this.bookmarkRepository.delete(bookmarkId);
+  }
 }

@@ -1,19 +1,27 @@
-import { User } from "src/user/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from 'src/user/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class BookMark {
   @PrimaryGeneratedColumn()
-  id:string;
+  id: string;
 
   @Column()
   title: string;
 
-  @Column({nullable:true})
-  description?:string;
+  @Column({ nullable: true })
+  description?: string;
 
   @Column()
-  link:string;
+  link: string;
 
   @CreateDateColumn()
   CreatedAt: Date;
@@ -25,6 +33,6 @@ export class BookMark {
   userId: string;
 
   @ManyToOne(() => User, (user) => user.bookMark)
-  @JoinColumn({name:'id'})
+  @JoinColumn({ name: 'id' })
   user: User;
 }

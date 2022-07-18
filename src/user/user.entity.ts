@@ -1,20 +1,27 @@
-import { Exclude } from "class-transformer";
-import { AuthDto } from "src/auth/dto";
-import { BookMark } from "../bookmark/bookmark.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Exclude } from 'class-transformer';
+import { AuthDto } from 'src/auth/dto';
+import { BookMark } from '../bookmark/bookmark.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id:string;
+  id: string;
 
-  @Column({unique:true})
-  email:string;
+  @Column({ unique: true })
+  email: string;
 
   @Column()
-  password:string;
+  password: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   name?: string;
 
   @CreateDateColumn()
@@ -24,5 +31,5 @@ export class User {
   UpdatedAt: Date;
 
   @OneToMany(() => BookMark, (bookMark) => bookMark.user)
-    bookMark: BookMark[]
+  bookMark: BookMark[];
 }
