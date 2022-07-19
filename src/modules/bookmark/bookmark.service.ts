@@ -12,7 +12,10 @@ export class BookmarkService {
   ) {}
 
   getBookMarks(userId: string): Promise<BookMark[]> {
-    return this.bookmarkRepository.find({ where: { userId } });
+    return this.bookmarkRepository.find({
+      where: { userId },
+      relations: ['user'],
+    });
   }
 
   async createBookMark(userId: string, dto: CreateBookMarkDto) {

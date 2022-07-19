@@ -33,6 +33,6 @@ export class BookMark {
   userId: string;
 
   @ManyToOne(() => User, (user) => user.bookMark)
-  @JoinColumn({ name: 'id' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 }

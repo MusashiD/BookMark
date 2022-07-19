@@ -14,8 +14,11 @@ export class UserService {
     return this.usersRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+  findOne(id: string): Promise<User[]> {
+    return this.usersRepository.find({
+      where: { id },
+      relations: ['bookMark'],
+    });
   }
 
   async remove(id: string): Promise<void> {
